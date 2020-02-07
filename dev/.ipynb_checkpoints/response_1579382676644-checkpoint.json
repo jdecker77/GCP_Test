@@ -1,0 +1,146 @@
+{
+  "pagination": {
+    "start": 0,
+    "end": 3,
+    "pages": 1,
+    "page": 1,
+    "total": 3,
+    "showing": 3
+  },
+  "folder": "",
+  "datasets": [
+    {
+      "id": 2,
+      "name": "pantograph/train",
+      "directory": "/datasets/pantograph/train/",
+      "categories": [
+        1,
+        2,
+        3
+      ],
+      "owner": "admin",
+      "users": [],
+      "annotate_url": "",
+      "default_annotation_metadata": {},
+      "deleted": false,
+      "numberImages": 72,
+      "numberAnnotated": 0,
+      "permissions": {
+        "owner": true,
+        "edit": true,
+        "share": true,
+        "generate": true,
+        "delete": true,
+        "download": true
+      },
+      "first_image_id": 23
+    },
+    {
+      "id": 3,
+      "name": "pantograph/test",
+      "directory": "/datasets/pantograph/test/",
+      "categories": [
+        1,
+        2,
+        3
+      ],
+      "owner": "admin",
+      "users": [],
+      "annotate_url": "",
+      "default_annotation_metadata": {},
+      "deleted": false,
+      "numberImages": 20,
+      "numberAnnotated": 0,
+      "permissions": {
+        "owner": true,
+        "edit": true,
+        "share": true,
+        "generate": true,
+        "delete": true,
+        "download": true
+      },
+      "first_image_id": 3
+    },
+    {
+      "id": 4,
+      "name": "pantograph/val",
+      "directory": "/datasets/pantograph/val/",
+      "categories": [
+        1,
+        2,
+        3
+      ],
+      "owner": "admin",
+      "users": [],
+      "annotate_url": "",
+      "default_annotation_metadata": {},
+      "deleted": false,
+      "numberImages": 8,
+      "numberAnnotated": 3,
+      "permissions": {
+        "owner": true,
+        "edit": true,
+        "share": true,
+        "generate": true,
+        "delete": true,
+        "download": true
+      },
+      "first_image_id": 95
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "front_bar",
+      "supercategory": "",
+      "color": "#241ca2",
+      "metadata": {},
+      "creator": "admin",
+      "deleted": false,
+      "keypoint_edges": [],
+      "keypoint_labels": []
+    },
+    {
+      "id": 2,
+      "name": "middle_bar",
+      "supercategory": "",
+      "color": "#36f9fa",
+      "metadata": {},
+      "creator": "admin",
+      "deleted": false,
+      "keypoint_edges": [],
+      "keypoint_labels": []
+    },
+    {
+      "id": 3,
+      "name": "rear_bar",
+      "supercategory": "",
+      "color": "#f451a3",
+      "metadata": {},
+      "creator": "admin",
+      "deleted": false,
+      "keypoint_edges": [
+        [
+          5,
+          6
+        ],
+        [
+          4,
+          1
+        ]
+      ],
+      "keypoint_labels": []
+    },
+    {
+      "id": 4,
+      "name": "front_bar/L1",
+      "supercategory": "",
+      "color": "#0fbb0a",
+      "metadata": {},
+      "creator": "admin",
+      "deleted": false,
+      "keypoint_edges": [],
+      "keypoint_labels": []
+    }
+  ]
+}

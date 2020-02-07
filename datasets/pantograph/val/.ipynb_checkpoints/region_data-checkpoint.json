@@ -1,0 +1,1568 @@
+{
+    "annotations": [
+        {
+            "area": 145803,
+            "bbox": [
+                424,
+                893,
+                1113,
+                131
+            ],
+            "category_id": 3,
+            "color": "#9661fe",
+            "creator": "admin",
+            "dataset_id": 4,
+            "events": [
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1577832760569
+                    },
+                    "milliseconds": 33537,
+                    "tools_used": [
+                        "BBox"
+                    ],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578571566680
+                    },
+                    "milliseconds": 6659,
+                    "tools_used": [
+                        "Polygon"
+                    ],
+                    "user": "admin"
+                }
+            ],
+            "height": 1080,
+            "id": 8,
+            "image_id": 95,
+            "isbbox": false,
+            "iscrowd": false,
+            "metadata": {},
+            "milliseconds": 40196,
+            "segmentation": [
+                [
+                    423.5,
+                    1023.8,
+                    423.5,
+                    892.5,
+                    1536.8,
+                    892.5,
+                    1536.8,
+                    1023.8
+                ]
+            ],
+            "width": 1920
+        },
+        {
+            "area": 299497,
+            "bbox": [
+                262,
+                867,
+                1433,
+                209
+            ],
+            "category_id": 2,
+            "color": "#1c4ec8",
+            "creator": "admin",
+            "dataset_id": 4,
+            "events": [
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1577832794107
+                    },
+                    "milliseconds": 24533,
+                    "tools_used": [
+                        "BBox"
+                    ],
+                    "user": "admin"
+                }
+            ],
+            "height": 1080,
+            "id": 9,
+            "image_id": 95,
+            "isbbox": true,
+            "iscrowd": false,
+            "metadata": {},
+            "milliseconds": 24533,
+            "segmentation": [
+                [
+                    262.3,
+                    1075.5,
+                    262.3,
+                    866.6,
+                    1695,
+                    866.6,
+                    1695,
+                    1075.5
+                ]
+            ],
+            "width": 1920
+        },
+        {
+            "area": 194688,
+            "bbox": [
+                354,
+                794,
+                1248,
+                156
+            ],
+            "category_id": 1,
+            "color": "#67f3fb",
+            "creator": "admin",
+            "dataset_id": 4,
+            "events": [
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1577832879645
+                    },
+                    "milliseconds": 24631,
+                    "tools_used": [
+                        "Select"
+                    ],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578178633933
+                    },
+                    "milliseconds": 4494,
+                    "tools_used": [
+                        "Polygon"
+                    ],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578179577769
+                    },
+                    "milliseconds": 16572,
+                    "tools_used": [
+                        "Polygon"
+                    ],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578184682125
+                    },
+                    "milliseconds": 178078,
+                    "tools_used": [
+                        "Select",
+                        "Keypoints"
+                    ],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578571410575
+                    },
+                    "milliseconds": 8920,
+                    "tools_used": [
+                        "Select"
+                    ],
+                    "user": "admin"
+                }
+            ],
+            "height": 1080,
+            "id": 10,
+            "image_id": 95,
+            "isbbox": false,
+            "iscrowd": false,
+            "metadata": {},
+            "milliseconds": 329376,
+            "segmentation": [
+                [
+                    354.3,
+                    950.4,
+                    354.3,
+                    794.3,
+                    1601.9,
+                    794.3,
+                    1601.9,
+                    950.4
+                ]
+            ],
+            "width": 1920
+        },
+        {
+            "area": 47961,
+            "bbox": [
+                359,
+                797,
+                1242,
+                142
+            ],
+            "category_id": 1,
+            "color": "#4fd3a3",
+            "creator": "admin",
+            "dataset_id": 4,
+            "events": [
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578178638431
+                    },
+                    "milliseconds": 147760,
+                    "tools_used": [
+                        "Polygon",
+                        "Select"
+                    ],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578179264688
+                    },
+                    "milliseconds": 132576,
+                    "tools_used": [
+                        "Keypoints",
+                        "Select"
+                    ],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578179420011
+                    },
+                    "milliseconds": 27022,
+                    "tools_used": [
+                        "Keypoints"
+                    ],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578184412889
+                    },
+                    "milliseconds": 14826,
+                    "tools_used": [
+                        "Keypoints"
+                    ],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578184642027
+                    },
+                    "milliseconds": 21264,
+                    "tools_used": [
+                        "Select"
+                    ],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578185504801
+                    },
+                    "milliseconds": 88173,
+                    "tools_used": [
+                        "Select"
+                    ],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578185680001
+                    },
+                    "milliseconds": 30691,
+                    "tools_used": [
+                        "Keypoints"
+                    ],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578571435442
+                    },
+                    "milliseconds": 7110,
+                    "tools_used": [
+                        "Polygon",
+                        "Keypoints"
+                    ],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578658323986
+                    },
+                    "milliseconds": 8360,
+                    "tools_used": [
+                        "Select"
+                    ],
+                    "user": "admin"
+                }
+            ],
+            "height": 1080,
+            "id": 47,
+            "image_id": 95,
+            "isbbox": false,
+            "iscrowd": false,
+            "metadata": {},
+            "milliseconds": 522260,
+            "segmentation": [
+                [
+                    369.4,
+                    938.7,
+                    359.4,
+                    928.9,
+                    360.1,
+                    921.5,
+                    400.2,
+                    882.7,
+                    481.8,
+                    840.2,
+                    535.3,
+                    823.5,
+                    561.6,
+                    817.2,
+                    653.9,
+                    811,
+                    1288.9,
+                    797.4,
+                    1392.3,
+                    798.4,
+                    1441,
+                    805.8,
+                    1487.7,
+                    819.2,
+                    1540.9,
+                    847.1,
+                    1601.5,
+                    886.8,
+                    1591.1,
+                    906.2,
+                    1565.6,
+                    895.8,
+                    1524.5,
+                    874.3,
+                    1465,
+                    848.1,
+                    1421.1,
+                    834.6,
+                    1374.6,
+                    834.2,
+                    1065.2,
+                    844.9,
+                    554.9,
+                    853.8,
+                    504.2,
+                    868.2,
+                    443.5,
+                    895,
+                    370,
+                    939.2
+                ]
+            ],
+            "width": 1920
+        },
+        {
+            "area": 29518,
+            "bbox": [
+                265,
+                873,
+                1428,
+                194
+            ],
+            "category_id": 2,
+            "color": "#e80c2e",
+            "creator": "admin",
+            "dataset_id": 4,
+            "events": [
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578178793832
+                    },
+                    "milliseconds": 113410,
+                    "tools_used": [
+                        "Polygon"
+                    ],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578179091776
+                    },
+                    "milliseconds": 74350,
+                    "tools_used": [
+                        "Select"
+                    ],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578571631074
+                    },
+                    "milliseconds": 1281,
+                    "tools_used": [
+                        "Polygon"
+                    ],
+                    "user": "admin"
+                }
+            ],
+            "height": 1080,
+            "id": 48,
+            "image_id": 95,
+            "isbbox": false,
+            "iscrowd": false,
+            "metadata": {},
+            "milliseconds": 189041,
+            "segmentation": [
+                [
+                    274.1,
+                    1035.7,
+                    298.8,
+                    998,
+                    345.2,
+                    948.7,
+                    413.9,
+                    912.7,
+                    456.8,
+                    897.3,
+                    569.8,
+                    893.5,
+                    1103.7,
+                    884.5,
+                    1495.5,
+                    872.8,
+                    1513.6,
+                    877.1,
+                    1597.4,
+                    910.2,
+                    1630.6,
+                    935,
+                    1664.1,
+                    976.8,
+                    1683.8,
+                    1004.3,
+                    1692.7,
+                    1031.7,
+                    1680.8,
+                    1037.1,
+                    1664.1,
+                    1010.8,
+                    1624.7,
+                    956.6,
+                    1590.8,
+                    929.7,
+                    1556.2,
+                    912.4,
+                    1519.8,
+                    898.7,
+                    1494.1,
+                    892.2,
+                    1393.4,
+                    893.3,
+                    568,
+                    916.6,
+                    460.6,
+                    917.8,
+                    419.5,
+                    932.1,
+                    381.9,
+                    948.8,
+                    356,
+                    966.6,
+                    336.5,
+                    984.2,
+                    300,
+                    1028.3,
+                    290.2,
+                    1044.5,
+                    280.7,
+                    1065.1,
+                    275.2,
+                    1067.4,
+                    264.5,
+                    1064.3
+                ]
+            ],
+            "width": 1920
+        },
+        {
+            "area": 14997,
+            "bbox": [
+                431,
+                898,
+                1100,
+                119
+            ],
+            "category_id": 3,
+            "color": "#dfaa76",
+            "creator": "admin",
+            "dataset_id": 4,
+            "events": [
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1578178910876
+                    },
+                    "milliseconds": 180900,
+                    "tools_used": [
+                        "Polygon",
+                        "Select"
+                    ],
+                    "user": "admin"
+                }
+            ],
+            "height": 1080,
+            "id": 49,
+            "image_id": 95,
+            "isbbox": false,
+            "iscrowd": false,
+            "metadata": {},
+            "milliseconds": 180900,
+            "segmentation": [
+                [
+                    448.8,
+                    1017.1,
+                    431.4,
+                    999.6,
+                    432.5,
+                    996,
+                    470.5,
+                    963.1,
+                    527.9,
+                    931.2,
+                    559.4,
+                    919.7,
+                    597.8,
+                    914.9,
+                    599,
+                    938.8,
+                    566.5,
+                    944.8,
+                    516.7,
+                    969,
+                    477.5,
+                    992.3,
+                    448.9,
+                    1016.2
+                ],
+                [
+                    938.8,
+                    926.4,
+                    937.9,
+                    932.2,
+                    672.2,
+                    936.8,
+                    673,
+                    923.3
+                ],
+                [
+                    1000,
+                    926.3,
+                    1109.7,
+                    924.4,
+                    1109.2,
+                    928.2,
+                    999.2,
+                    929.9
+                ],
+                [
+                    1222.1,
+                    913,
+                    1365.7,
+                    898.1,
+                    1391.9,
+                    899.2,
+                    1440.9,
+                    913,
+                    1490.6,
+                    939,
+                    1530.5,
+                    965.3,
+                    1530.6,
+                    973.3,
+                    1515.1,
+                    993.1,
+                    1486.7,
+                    970.7,
+                    1447.8,
+                    947.1,
+                    1396.6,
+                    927.6,
+                    1362.3,
+                    919.9,
+                    1216.1,
+                    921.8,
+                    1222.6,
+                    913.4
+                ]
+            ],
+            "width": 1920
+        },
+        {
+            "area": 153845,
+            "bbox": [
+                491,
+                758,
+                1061,
+                145
+            ],
+            "category_id": 3,
+            "color": "#59db94",
+            "creator": "admin",
+            "dataset_id": 4,
+            "events": [
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1577832994708
+                    },
+                    "milliseconds": 12624,
+                    "tools_used": [
+                        "BBox"
+                    ],
+                    "user": "admin"
+                }
+            ],
+            "height": 1080,
+            "id": 14,
+            "image_id": 97,
+            "isbbox": true,
+            "iscrowd": false,
+            "metadata": {},
+            "milliseconds": 12624,
+            "segmentation": [
+                [
+                    490.7,
+                    902.8,
+                    490.7,
+                    758.1,
+                    1552.3,
+                    758.1,
+                    1552.3,
+                    902.8
+                ]
+            ],
+            "width": 1920
+        },
+        {
+            "area": 283515,
+            "bbox": [
+                332,
+                734,
+                1383,
+                205
+            ],
+            "category_id": 2,
+            "color": "#f51a90",
+            "creator": "admin",
+            "dataset_id": 4,
+            "events": [
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1577833007333
+                    },
+                    "milliseconds": 17819,
+                    "tools_used": [
+                        "BBox"
+                    ],
+                    "user": "admin"
+                }
+            ],
+            "height": 1080,
+            "id": 15,
+            "image_id": 97,
+            "isbbox": true,
+            "iscrowd": false,
+            "metadata": {},
+            "milliseconds": 17819,
+            "segmentation": [
+                [
+                    331.5,
+                    939,
+                    331.5,
+                    734.3,
+                    1714.6,
+                    734.3,
+                    1714.6,
+                    939
+                ]
+            ],
+            "width": 1920
+        },
+        {
+            "area": 198576,
+            "bbox": [
+                430,
+                653,
+                1182,
+                168
+            ],
+            "category_id": 1,
+            "color": "#fb256b",
+            "creator": "admin",
+            "dataset_id": 4,
+            "events": [
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1577833026979
+                    },
+                    "milliseconds": 9881,
+                    "tools_used": [
+                        "BBox"
+                    ],
+                    "user": "admin"
+                }
+            ],
+            "height": 1080,
+            "id": 16,
+            "image_id": 97,
+            "isbbox": true,
+            "iscrowd": false,
+            "metadata": {},
+            "milliseconds": 9881,
+            "segmentation": [
+                [
+                    429.7,
+                    821.2,
+                    429.7,
+                    652.7,
+                    1612.3,
+                    652.7,
+                    1612.3,
+                    821.2
+                ]
+            ],
+            "width": 1920
+        },
+        {
+            "area": 144948,
+            "bbox": [
+                505,
+                681,
+                1028,
+                141
+            ],
+            "category_id": 3,
+            "color": "#c34ef5",
+            "creator": "admin",
+            "dataset_id": 4,
+            "events": [
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1577832915062
+                    },
+                    "milliseconds": 18043,
+                    "tools_used": [
+                        "BBox"
+                    ],
+                    "user": "admin"
+                }
+            ],
+            "height": 1080,
+            "id": 11,
+            "image_id": 101,
+            "isbbox": true,
+            "iscrowd": false,
+            "metadata": {},
+            "milliseconds": 18043,
+            "segmentation": [
+                [
+                    505.2,
+                    822.2,
+                    505.2,
+                    680.6,
+                    1532.7,
+                    680.6,
+                    1532.7,
+                    822.2
+                ]
+            ],
+            "width": 1920
+        },
+        {
+            "area": 267933,
+            "bbox": [
+                350,
+                645,
+                1333,
+                201
+            ],
+            "category_id": 2,
+            "color": "#f93566",
+            "creator": "admin",
+            "dataset_id": 4,
+            "events": [
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1577832934815
+                    },
+                    "milliseconds": 18192,
+                    "tools_used": [
+                        "BBox"
+                    ],
+                    "user": "admin"
+                }
+            ],
+            "height": 1080,
+            "id": 12,
+            "image_id": 101,
+            "isbbox": true,
+            "iscrowd": false,
+            "metadata": {},
+            "milliseconds": 18192,
+            "segmentation": [
+                [
+                    350.1,
+                    846,
+                    350.1,
+                    645.4,
+                    1682.5,
+                    645.4,
+                    1682.5,
+                    846
+                ]
+            ],
+            "width": 1920
+        },
+        {
+            "area": 182400,
+            "bbox": [
+                446,
+                574,
+                1140,
+                160
+            ],
+            "category_id": 1,
+            "color": "#3bced9",
+            "creator": "admin",
+            "dataset_id": 4,
+            "events": [
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1577832955006
+                    },
+                    "milliseconds": 19584,
+                    "tools_used": [
+                        "BBox"
+                    ],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1577995035791
+                    },
+                    "milliseconds": 4244,
+                    "tools_used": [
+                        "Brush"
+                    ],
+                    "user": "admin"
+                }
+            ],
+            "height": 1080,
+            "id": 13,
+            "image_id": 101,
+            "isbbox": true,
+            "iscrowd": false,
+            "metadata": {},
+            "milliseconds": 23828,
+            "segmentation": [
+                [
+                    446.3,
+                    734.3,
+                    446.3,
+                    574.1,
+                    1586.4,
+                    574.1,
+                    1586.4,
+                    734.3
+                ]
+            ],
+            "width": 1920
+        },
+        {
+            "area": 19356,
+            "bbox": [
+                507,
+                685,
+                1022,
+                131
+            ],
+            "category_id": 3,
+            "color": "#f617b9",
+            "creator": "admin",
+            "dataset_id": 4,
+            "events": [
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1577995040037
+                    },
+                    "milliseconds": 87632,
+                    "tools_used": [
+                        "Brush",
+                        "Eraser",
+                        "Brush",
+                        "Eraser",
+                        "Brush"
+                    ],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "created_at": {
+                        "$date": 1577995040037
+                    },
+                    "milliseconds": 536727,
+                    "tools_used": [
+                        "Brush",
+                        "Eraser",
+                        "Brush",
+                        "Eraser",
+                        "Brush"
+                    ],
+                    "user": "admin"
+                }
+            ],
+            "height": 1080,
+            "id": 37,
+            "image_id": 101,
+            "isbbox": false,
+            "iscrowd": false,
+            "metadata": {},
+            "milliseconds": 624359,
+            "segmentation": [
+                [
+                    523.4,
+                    782.1,
+                    566.5,
+                    756.9,
+                    574.5,
+                    750.1,
+                    587.6,
+                    744.9,
+                    606.7,
+                    732.3,
+                    644.4,
+                    723.7,
+                    647.3,
+                    721.6,
+                    651.6,
+                    721.7,
+                    653,
+                    717.1,
+                    663.5,
+                    718.3,
+                    665.6,
+                    734.5,
+                    656.3,
+                    744.1,
+                    625.3,
+                    751.6,
+                    590.6,
+                    765.2,
+                    575.4,
+                    774.6,
+                    531.6,
+                    806.9,
+                    522.5,
+                    815.8,
+                    516.6,
+                    815.2,
+                    507.6,
+                    806.2,
+                    506.8,
+                    802.4,
+                    508.3,
+                    798.9,
+                    514.7,
+                    793.7
+                ],
+                [
+                    902.6,
+                    710.7,
+                    906.4,
+                    721.5,
+                    904.3,
+                    727.3,
+                    892.4,
+                    729.2,
+                    843.1,
+                    729.5,
+                    809.2,
+                    733.7,
+                    752,
+                    736.2,
+                    714.5,
+                    741,
+                    704.4,
+                    744.5,
+                    697.6,
+                    742.2,
+                    696.1,
+                    738.6,
+                    709.4,
+                    713,
+                    731,
+                    710.8,
+                    751.8,
+                    706.5,
+                    772.3,
+                    708.7,
+                    801.6,
+                    706.5,
+                    816.2,
+                    703.8,
+                    846.4,
+                    703.4,
+                    856.4,
+                    700.5,
+                    892.3,
+                    698.8,
+                    895.9,
+                    700.4,
+                    902.1,
+                    710
+                ],
+                [
+                    1525.7,
+                    759.9,
+                    1529.3,
+                    767.1,
+                    1527.2,
+                    772.7,
+                    1519.3,
+                    780.7,
+                    1514.4,
+                    782.7,
+                    1510.6,
+                    782.2,
+                    1501.5,
+                    775.8,
+                    1492.1,
+                    764.4,
+                    1480.5,
+                    760.1,
+                    1460.2,
+                    748.5,
+                    1448.8,
+                    743.8,
+                    1433.5,
+                    734.2,
+                    1398.8,
+                    722.7,
+                    1385.5,
+                    719.9,
+                    1379.1,
+                    720.3,
+                    1374.1,
+                    718.2,
+                    1372.1,
+                    713.3,
+                    1370.3,
+                    697.7,
+                    1371.5,
+                    689.7,
+                    1378,
+                    686.2,
+                    1389.6,
+                    688.5,
+                    1393.6,
+                    687.3,
+                    1399.6,
+                    690.8,
+                    1457.2,
+                    710.9,
+                    1459.7,
+                    714.6,
+                    1473.3,
+                    720.1,
+                    1500.5,
+                    737,
+                    1508.1,
+                    740.2,
+                    1516.8,
+                    748,
+                    1523.7,
+                    758.3
+                ],
+                [
+                    1138.5,
+                    715.5,
+                    1139.9,
+                    701.6,
+                    1143.4,
+                    697.8,
+                    1149.2,
+                    695.3,
+                    1196,
+                    689.9,
+                    1221.7,
+                    690.3,
+                    1251.5,
+                    687.4,
+                    1254.7,
+                    688.8,
+                    1266.4,
+                    685.3,
+                    1270,
+                    686.8,
+                    1284.2,
+                    685.3,
+                    1289.2,
+                    687.4,
+                    1294.1,
+                    706,
+                    1290.8,
+                    714.3,
+                    1279.2,
+                    717.3,
+                    1261.1,
+                    716.3,
+                    1249.1,
+                    719,
+                    1240.5,
+                    716.6,
+                    1219.4,
+                    721.2,
+                    1215.5,
+                    720,
+                    1203.6,
+                    722.6,
+                    1200.2,
+                    721.9,
+                    1194.3,
+                    724.4,
+                    1191.7,
+                    721.2,
+                    1162,
+                    722.5,
+                    1156.7,
+                    725,
+                    1144.7,
+                    727.1,
+                    1139.7,
+                    725,
+                    1137.7,
+                    720.1,
+                    1138.8,
+                    716.3
+                ]
+            ],
+            "width": 1920
+        }
+    ],
+    "categories": [
+        {
+            "color": "#241ca2",
+            "creator": "admin",
+            "id": 1,
+            "metadata": {},
+            "name": "front_bar",
+            "supercategory": ""
+        },
+        {
+            "color": "#36f9fa",
+            "creator": "admin",
+            "id": 2,
+            "metadata": {},
+            "name": "middle_bar",
+            "supercategory": ""
+        },
+        {
+            "color": "#f451a3",
+            "creator": "admin",
+            "id": 3,
+            "metadata": {},
+            "name": "rear_bar",
+            "supercategory": ""
+        }
+    ],
+    "images": [
+        {
+            "annotated": true,
+            "annotating": [],
+            "category_ids": [
+                1,
+                2,
+                3
+            ],
+            "dataset_id": 4,
+            "events": [
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 122759,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 169187,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 1231431,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 1065483,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 3104612,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 0,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 3349672,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 357894,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 80309,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 587280,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 587889,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 4655158,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 0,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 2678,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 6292995,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 0,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 1147708,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 1388621,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 0,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 225873,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 777671,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 163476,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 72362,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 2297369,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 2835,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 2189,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 10527,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 3364422,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 0,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 2045243,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 0,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 8867426,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 685445,
+                    "tools_used": [],
+                    "user": "admin"
+                }
+            ],
+            "file_name": "padd_to_swin_frame_104182.jpg",
+            "height": 1080,
+            "id": 95,
+            "is_modified": false,
+            "metadata": {},
+            "milliseconds": 42658514,
+            "num_annotations": 6,
+            "path": "/datasets/pantograph/val/padd_to_swin_frame_104182.jpg",
+            "regenerate_thumbnail": false,
+            "width": 1920
+        },
+        {
+            "annotated": true,
+            "annotating": [],
+            "category_ids": [
+                1,
+                2,
+                3
+            ],
+            "dataset_id": 4,
+            "events": [
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 54668,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 11646,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 762,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 1277,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 2463,
+                    "tools_used": [],
+                    "user": "admin"
+                }
+            ],
+            "file_name": "padd_to_swin_frame_237838.jpg",
+            "height": 1080,
+            "id": 97,
+            "is_modified": false,
+            "metadata": {},
+            "milliseconds": 70816,
+            "num_annotations": 3,
+            "path": "/datasets/pantograph/val/padd_to_swin_frame_237838.jpg",
+            "regenerate_thumbnail": false,
+            "width": 1920
+        },
+        {
+            "annotated": true,
+            "annotating": [],
+            "category_ids": [
+                1,
+                2,
+                3
+            ],
+            "dataset_id": 4,
+            "events": [
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 77913,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 813,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 1565,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 2124,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 1723,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 9194,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 4926,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 698,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 1067175,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 1405,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 785,
+                    "tools_used": [],
+                    "user": "admin"
+                },
+                {
+                    "_cls": "SessionEvent",
+                    "milliseconds": 2037,
+                    "tools_used": [],
+                    "user": "admin"
+                }
+            ],
+            "file_name": "padd_to_swin_frame_215562.jpg",
+            "height": 1080,
+            "id": 101,
+            "is_modified": false,
+            "metadata": {},
+            "milliseconds": 1170358,
+            "num_annotations": 4,
+            "path": "/datasets/pantograph/val/padd_to_swin_frame_215562.jpg",
+            "regenerate_thumbnail": true,
+            "width": 1920
+        }
+    ]
+}

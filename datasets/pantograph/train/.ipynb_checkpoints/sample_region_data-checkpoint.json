@@ -1,0 +1,114 @@
+{
+    "annotations": [],
+    "categories": [
+        {
+            "color": "#ff0000",
+            "id": 1,
+            "keypoints": [
+                "L1",
+                "L2",
+                "L3",
+                "R1",
+                "R2",
+                "R3"
+            ],
+            "name": "front_bar",
+            "skeleton": [
+                [
+                    0,
+                    1
+                ],
+                [
+                    1,
+                    2
+                ],
+                [
+                    2,
+                    3
+                ],
+                [
+                    3,
+                    4
+                ],
+                [
+                    4,
+                    5
+                ]
+            ],
+            "supercategory": ""
+        },
+        {
+            "color": "#00ff00",
+            "id": 2,
+            "keypoints": [
+                "L1",
+                "L2",
+                "L3",
+                "R1",
+                "R2",
+                "R3"
+            ],
+            "name": "middle_bar",
+            "skeleton": [
+                [
+                    0,
+                    1
+                ],
+                [
+                    1,
+                    2
+                ],
+                [
+                    2,
+                    3
+                ],
+                [
+                    3,
+                    4
+                ],
+                [
+                    4,
+                    5
+                ]
+            ],
+            "supercategory": ""
+        },
+        {
+            "color": "#0000ff",
+            "id": 3,
+            "keypoints": [
+                "L1",
+                "L2",
+                "L3",
+                "R1",
+                "R2",
+                "R3"
+            ],
+            "name": "rear_bar",
+            "skeleton": [
+                [
+                    0,
+                    1
+                ],
+                [
+                    1,
+                    2
+                ],
+                [
+                    2,
+                    3
+                ],
+                [
+                    3,
+                    4
+                ],
+                [
+                    4,
+                    5
+                ]
+            ],
+            "supercategory": ""
+        }
+    ],
+    "images": []
+}
