@@ -42,17 +42,22 @@ from pycocotools import mask as maskUtils
 # Root directory of the project
 ROOT_DIR = os.path.abspath("../")
 
-# Import Mask RCNN
-sys.path.append(ROOT_DIR)  # To find local version of the library
+# Add root to path 
+if ROOT_DIR not in sys.path:
+    sys.path.append(ROOT_DIR)
+
+# Directory to save logs and trained model
+MODEL_DIR = os.path.join(ROOT_DIR, "model")
+
 from mrcnn.config import Config
 from mrcnn import model as modellib, utils
 
 # Path to trained weights file
-COCO_WEIGHTS_PATH = os.path.join(ROOT_DIR, "mask_rcnn_coco.h5")
+COCO_WEIGHTS_PATH = os.path.join(MODEL_DIR, "mask_rcnn_coco.h5")
 
 # Directory to save logs and model checkpoints, if not provided
 # through the command line argument --logs
-DEFAULT_LOGS_DIR = os.path.join(ROOT_DIR, "logs")
+DEFAULT_LOGS_DIR = os.path.join(MODEL_DIR, "logs")
 
 ############################################################
 #  Configurations

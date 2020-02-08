@@ -18,8 +18,10 @@ import matplotlib.lines as lines
 from matplotlib.patches import Polygon
 import IPython.display
 import cv2
-import utils
 
+# import utils
+# from mrcnn.config import utils
+import utils
 
 ############################################################
 #  Visualization
