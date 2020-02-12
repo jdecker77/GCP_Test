@@ -19,6 +19,7 @@ import skimage.color
 import skimage.io
 import urllib.request
 import shutil
+print("I've been imported")
 
 
 
@@ -75,7 +76,8 @@ def keypoint_to_mask(keypoints,height,width):
 
 
 
-# def resize_image(image, min_dim=None, max_dim=None, min_scale=None, mode="none"):
+def resize_image(image, min_dim=None, max_dim=None, min_scale=None,padding=True, mode="square"):
+    # print("resize_image")
     """Resizes an image keeping the aspect ratio unchanged.
 
     min_dim: if provided, resizes the image such that it's smaller
@@ -108,79 +110,79 @@ def keypoint_to_mask(keypoints,height,width):
     padding: Padding added to the image [(top, bottom), (left, right), (0, 0)]
     """
     # Keep track of image dtype and return results in the same dtype
-    # image_dtype = image.dtype
-    # # Default window (y1, x1, y2, x2) and default scale == 1.
-    # h, w = image.shape[:2]
-    # window = (0, 0, h, w)
-    # scale = 1
-    # padding = [(0, 0), (0, 0), (0, 0)]
-    # crop = None
+    image_dtype = image.dtype
+    # Default window (y1, x1, y2, x2) and default scale == 1.
+    h, w = image.shape[:2]
+    window = (0, 0, h, w)
+    scale = 1
+    padding = [(0, 0), (0, 0), (0, 0)]
+    crop = None
 
-    # if mode == "none":
-    #     return image, window, scale, padding, crop
+    if mode == "none":
+        return image, window, scale, padding, crop
 
-    # # Scale?
-    # if min_dim:
-    #     # Scale up but not down
-    #     scale = max(1, min_dim / min(h, w))
-    # if min_scale and scale < min_scale:
-    #     scale = min_scale
+    # Scale?
+    if min_dim:
+        # Scale up but not down
+        scale = max(1, min_dim / min(h, w))
+    if min_scale and scale < min_scale:
+        scale = min_scale
 
-    # # Does it exceed max dim?
-    # if max_dim and mode == "square":
-    #     image_max = max(h, w)
-    #     if round(image_max * scale) > max_dim:
-    #         scale = max_dim / image_max
+    # Does it exceed max dim?
+    if max_dim and mode == "square":
+        image_max = max(h, w)
+        if round(image_max * scale) > max_dim:
+            scale = max_dim / image_max
 
-    # # Resize image using bilinear interpolation
-    # if scale != 1:
-    #     image = np.array(Image.fromarray(image).resize((round(w * scale),round(h * scale))))
-    #     # image = resize(image, (round(h * scale), round(w * scale)),
-    #     #                preserve_range=True)
+    # Resize image using bilinear interpolation
+    if scale != 1:
+        image = np.array(Image.fromarray(image).resize((round(w * scale),round(h * scale))))
+        # image = resize(image, (round(h * scale), round(w * scale)),
+        #                preserve_range=True)
 
-    # # Need padding or cropping?
-    # if mode == "square":
-    #     # Get new height and width
-    #     h, w = image.shape[:2]
-    #     top_pad = (max_dim - h) // 2
-    #     bottom_pad = max_dim - h - top_pad
-    #     left_pad = (max_dim - w) // 2
-    #     right_pad = max_dim - w - left_pad
-    #     padding = [(top_pad, bottom_pad), (left_pad, right_pad), (0, 0)]
-    #     image = np.pad(image, padding, mode='constant', constant_values=0)
-    #     window = (top_pad, left_pad, h + top_pad, w + left_pad)
-    # elif mode == "pad64":
-    #     h, w = image.shape[:2]
-    #     # Both sides must be divisible by 64
-    #     assert min_dim % 64 == 0, "Minimum dimension must be a multiple of 64"
-    #     # Height
-    #     if h % 64 > 0:
-    #         max_h = h - (h % 64) + 64
-    #         top_pad = (max_h - h) // 2
-    #         bottom_pad = max_h - h - top_pad
-    #     else:
-    #         top_pad = bottom_pad = 0
-    #     # Width
-    #     if w % 64 > 0:
-    #         max_w = w - (w % 64) + 64
-    #         left_pad = (max_w - w) // 2
-    #         right_pad = max_w - w - left_pad
-    #     else:
-    #         left_pad = right_pad = 0
-    #     padding = [(top_pad, bottom_pad), (left_pad, right_pad), (0, 0)]
-    #     image = np.pad(image, padding, mode='constant', constant_values=0)
-    #     window = (top_pad, left_pad, h + top_pad, w + left_pad)
-    # elif mode == "crop":
-    #     # Pick a random crop
-    #     h, w = image.shape[:2]
-    #     y = random.randint(0, (h - min_dim))
-    #     x = random.randint(0, (w - min_dim))
-    #     crop = (y, x, min_dim, min_dim)
-    #     image = image[y:y + min_dim, x:x + min_dim]
-    #     window = (0, 0, min_dim, min_dim)
-    # else:
-    #     raise Exception("Mode {} not supported".format(mode))
-    # return image.astype(image_dtype), window, scale, padding, crop
+    # Need padding or cropping?
+    if mode == "square":
+        # Get new height and width
+        h, w = image.shape[:2]
+        top_pad = (max_dim - h) // 2
+        bottom_pad = max_dim - h - top_pad
+        left_pad = (max_dim - w) // 2
+        right_pad = max_dim - w - left_pad
+        padding = [(top_pad, bottom_pad), (left_pad, right_pad), (0, 0)]
+        image = np.pad(image, padding, mode='constant', constant_values=0)
+        window = (top_pad, left_pad, h + top_pad, w + left_pad)
+    elif mode == "pad64":
+        h, w = image.shape[:2]
+        # Both sides must be divisible by 64
+        assert min_dim % 64 == 0, "Minimum dimension must be a multiple of 64"
+        # Height
+        if h % 64 > 0:
+            max_h = h - (h % 64) + 64
+            top_pad = (max_h - h) // 2
+            bottom_pad = max_h - h - top_pad
+        else:
+            top_pad = bottom_pad = 0
+        # Width
+        if w % 64 > 0:
+            max_w = w - (w % 64) + 64
+            left_pad = (max_w - w) // 2
+            right_pad = max_w - w - left_pad
+        else:
+            left_pad = right_pad = 0
+        padding = [(top_pad, bottom_pad), (left_pad, right_pad), (0, 0)]
+        image = np.pad(image, padding, mode='constant', constant_values=0)
+        window = (top_pad, left_pad, h + top_pad, w + left_pad)
+    elif mode == "crop":
+        # Pick a random crop
+        h, w = image.shape[:2]
+        y = random.randint(0, (h - min_dim))
+        x = random.randint(0, (w - min_dim))
+        crop = (y, x, min_dim, min_dim)
+        image = image[y:y + min_dim, x:x + min_dim]
+        window = (0, 0, min_dim, min_dim)
+    else:
+        raise Exception("Mode {} not supported".format(mode))
+    return image.astype(image_dtype), window, scale, padding, crop
 
 
 ############################################################
@@ -468,6 +470,8 @@ class Dataset(object):
         self.num_images = len(self.image_info)
         self._image_ids = np.arange(self.num_images)
 
+        # self.skeleton = []
+
         self.class_from_source_map = {"{}.{}".format(info['source'], info['id']): id
                                       for info, id in zip(self.class_info, self.class_ids)}
 
@@ -567,7 +571,7 @@ class Dataset(object):
         return keypoints, mask, class_ids
 
 
-def resize_image(image, min_dim=None, max_dim=None, padding=False, mode="none"):
+# def resize_image(image, min_dim=None, max_dim=None, padding=False, mode="square"):
     """
     Resizes an image keeping the aspect ratio.
 
@@ -587,44 +591,44 @@ def resize_image(image, min_dim=None, max_dim=None, padding=False, mode="none"):
     padding: Padding added to the image [(top, bottom), (left, right), (0, 0)]
     """
     # Default window (y1, x1, y2, x2) and default scale == 1.
-    h, w = image.shape[:2]
-    window = (0, 0, h, w)
-    scale = 1
-    padding = [(0, 0), (0, 0), (0, 0)]
-    crop = None
+    # h, w = image.shape[:2]
+    # window = (0, 0, h, w)
+    # scale = 1
+    # padding = [(0, 0), (0, 0), (0, 0)]
+    # crop = None
 
 
-    if mode == "none":
-        return image, window, scale, padding, crop
+    # # if mode == "none":
+    # #     return image, window, scale, padding
 
-    # Scale?
-    if min_dim:
-        # Scale up but not down
-        scale = max(1, min_dim / min(h, w))
-    # Does it exceed max dim?
-    if max_dim:
-        image_max = max(h, w)
-        if round(image_max * scale) > max_dim:
-            scale = max_dim / image_max
-    # Resize image and mask
-    if scale != 1:
-        image = np.array(Image.fromarray(image).resize((round(w * scale),round(h * scale))))
-        # np.array(Image.fromarray(round(h * scale),round(w * scale)).resize())
-        # image = scipy.misc.imresize(image, (round(h * scale), round(w * scale)))
+    # # Scale?
+    # if min_dim:
+    #     # Scale up but not down
+    #     scale = max(1, min_dim / min(h, w))
+    # # Does it exceed max dim?
+    # if max_dim:
+    #     image_max = max(h, w)
+    #     if round(image_max * scale) > max_dim:
+    #         scale = max_dim / image_max
+    # # Resize image and mask
+    # if scale != 1:
+    #     image = np.array(Image.fromarray(image).resize((round(w * scale),round(h * scale))))
+    #     # np.array(Image.fromarray(round(h * scale),round(w * scale)).resize())
+    #     # image = scipy.misc.imresize(image, (round(h * scale), round(w * scale)))
     
-    # Need padding?
-    if padding:
-        # Get new height and width
-        h, w = image.shape[:2]
-        top_pad = (max_dim - h) // 2
-        bottom_pad = max_dim - h - top_pad
-        left_pad = (max_dim - w) // 2
-        right_pad = max_dim - w - left_pad
-        padding = [(top_pad, bottom_pad), (left_pad, right_pad), (0, 0)]
-        image = np.pad(image, padding, mode='constant', constant_values=0)
-        window = (top_pad, left_pad, h + top_pad, w + left_pad)
-        print('padding',padding)
-    return image, window, scale, padding
+    # # Need padding?
+    # if padding:
+    #     # Get new height and width
+    #     h, w = image.shape[:2]
+    #     top_pad = (max_dim - h) // 2
+    #     bottom_pad = max_dim - h - top_pad
+    #     left_pad = (max_dim - w) // 2
+    #     right_pad = max_dim - w - left_pad
+    #     padding = [(top_pad, bottom_pad), (left_pad, right_pad), (0, 0)]
+    #     image = np.pad(image, padding, mode='constant', constant_values=0)
+    #     window = (top_pad, left_pad, h + top_pad, w + left_pad)
+    #     print('padding',padding)
+    # return image, window, scale, padding
     # image.astype(image_dtype), window, scale, padding, crop
 
 
@@ -860,8 +864,9 @@ def unmold_mask(mask, bbox, image_shape):
     """
     threshold = 0.5
     y1, x1, y2, x2 = bbox
-    mask = scipy.misc.imresize(
-        mask, (y2 - y1, x2 - x1), interp='bilinear').astype(np.float32) / 255.0
+    mask = np.array(Image.fromarray(mask).resize((x2 - x1,y2 - y1)))
+    # mask = scipy.misc.imresize(
+    #     mask, (y2 - y1, x2 - x1), interp='bilinear').astype(np.float32) / 255.0
     mask = np.where(mask >= threshold, 1, 0).astype(np.uint8)
 
     # Put the mask in the right location.

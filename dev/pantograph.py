@@ -34,11 +34,6 @@ import datetime
 import numpy as np
 import skimage.draw
 
-
-from pycocotools.coco import COCO
-from pycocotools.cocoeval import COCOeval
-from pycocotools import mask as maskUtils
-
 # Root directory of the project
 ROOT_DIR = os.path.abspath("../")
 
@@ -46,18 +41,23 @@ ROOT_DIR = os.path.abspath("../")
 if ROOT_DIR not in sys.path:
     sys.path.append(ROOT_DIR)
 
-# Directory to save logs and trained model
-MODEL_DIR = os.path.join(ROOT_DIR, "model")
+from cocotools.coco import COCO
+from cocotools.cocoeval import COCOeval
+from cocotools import mask as maskUtils
 
 from mrcnn.config import Config
 from mrcnn import model as modellib, utils
 
-# Path to trained weights file
-COCO_WEIGHTS_PATH = os.path.join(MODEL_DIR, "mask_rcnn_coco.h5")
 
-# Directory to save logs and model checkpoints, if not provided
-# through the command line argument --logs
-DEFAULT_LOGS_DIR = os.path.join(MODEL_DIR, "logs")
+# # Directory to save logs and trained model
+# MODEL_DIR = os.path.join(ROOT_DIR, "model")
+
+# # Path to trained weights file
+# COCO_WEIGHTS_PATH = os.path.join(MODEL_DIR, "mask_rcnn_coco.h5")
+
+# # Directory to save logs and model checkpoints, if not provided
+# # through the command line argument --logs
+# DEFAULT_LOGS_DIR = os.path.join(MODEL_DIR, "logs")
 
 ############################################################
 #  Configurations
@@ -79,7 +79,7 @@ class PantographConfig(Config):
     NUM_CLASSES = 1 + 3  # Background + pantograph
 
     # Number of training steps per epoch
-    STEPS_PER_EPOCH = 100
+    STEPS_PER_EPOCH = 2
 
     # Skip detections with < 90% confidence
     DETECTION_MIN_CONFIDENCE = 0.9
@@ -91,20 +91,23 @@ class PantographConfig(Config):
     TRAIN_ROIS_PER_IMAGE = 100
     MAX_GT_INSTANCES = 128
     RPN_TRAIN_ANCHORS_PER_IMAGE = 150
-    USE_MINI_MASK = False
+    USE_MINI_MASK = True
     MASK_POOL_SIZE = 14
     KEYPOINT_MASK_POOL_SIZE = 7
     LEARNING_RATE = 0.002
-    STEPS_PER_EPOCH = 1000
     WEIGHT_LOSS = True
     KEYPOINT_THRESHOLD = 0.005
 
     IMAGE_PADDING = True # False is not supported?
-    IMAGE_RESIZE_MODE = "crop" # Options = square,bilinear,crop,
-    IMAGE_MIN_DIM = 800
+    IMAGE_RESIZE_MODE = "square" # Options = none,square,pad64,crop is not working,
+    IMAGE_MIN_DIM = 512
     IMAGE_MAX_DIM = 1024
+    IMAGE_MIN_SCALE = 0.5 # Not used yet
 
     RPN_ANCHOR_STRIDE = 2
+
+    # PART_STR = ['L1','L2','L3','R3','R2','R1']
+    # LIMBS = [0,1,1,2,2,3,3,4,4,5]
 
 # Why is this here?
 Person_ID = 1
@@ -170,17 +173,25 @@ class PantographDataset(utils.Dataset):
                     imgIds=[i], catIds=class_ids, iscrowd=None)))
 
         #the connection between 2 close keypoints
+        # Change personID to catID
         self._skeleton = pantograph.loadCats(Person_ID)[0]["skeleton"]
+        self._skeleton = np.array(self._skeleton,dtype=np.int32)
 
         self._keypoint_names = pantograph.loadCats(Person_ID)[0]["keypoints"]
-
-        self._skeleton = np.array(self._skeleton,dtype=np.int32)
 
         print("Skeleton:",np.shape(self._skeleton))
         print("Keypoint names:",np.shape(self._keypoint_names))
 
         if return_pantograph:
             return pantograph
+
+
+    @property
+    def skeleton(self):
+        return self._skeleton
+    @property
+    def keypoint_names(self):
+        return self._keypoint_names
         
 
     def load_mask(self, image_id):
@@ -251,7 +262,7 @@ class PantographDataset(utils.Dataset):
         image_info = self.image_info[image_id]
         if image_info["source"] != "pantograph":
             print("Error in loading keypoints")
-            return super(CocoDataset, self).load_mask(image_id)
+            return super(CocoDataset, self).load_keypoints(image_id)
 
         keypoints = []
         class_ids = []

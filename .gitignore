@@ -2,7 +2,7 @@ assets/
 coco-annotator/
 datasets/balloon/
 datasets/pantograph/test/
-model/logs/
+model/
 resources/
 mask_rcnn_coco_humanpose.h5
 mask_rcnn_coco.h5

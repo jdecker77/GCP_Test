@@ -20,6 +20,7 @@ import logging
 from collections import OrderedDict
 import numpy as np
 import scipy.misc
+from PIL import Image
 import tensorflow as tf
 import keras
 import keras.backend as K
@@ -28,7 +29,14 @@ import keras.initializers as KI
 import keras.engine as KE
 import keras.models as KM
 
-# import utils
+# Root directory of the project
+ROOT_DIR = os.path.abspath("../")
+
+# Add root to path 
+if ROOT_DIR not in sys.path:
+    sys.path.append(ROOT_DIR)
+
+# from . import utils
 from mrcnn import utils
 # from mrcnn import config
 
@@ -1154,7 +1162,7 @@ def build_rpn_model(anchor_stride, anchors_per_location, depth):
 ############################################################
 
 def fpn_classifier_graph(rois, feature_maps,
-                         image_shape, pool_size, num_classes,num_keypoints = 17):
+                         image_shape, pool_size, num_classes,num_keypoints = 6):
     """Builds the computation graph of the feature pyramid network classifier
     and regressor heads.
 
@@ -1499,8 +1507,8 @@ def keypoint_weight_loss_graph(target_keypoint_weight, pred_class, target_class_
     # Reshape to merge batch and roi dimensions for simplicity.
     target_mask_class = tf.cast(target_keypoint_weight, tf.int64)
     target_class_ids = K.reshape(target_class_ids, (-1,))
-    pred_class = K.reshape(pred_class, (-1, 17, K.int_shape(pred_class)[3]))
-    target_mask_class = tf.cast(K.reshape(target_mask_class, (-1, 17)), tf.int64)
+    pred_class = K.reshape(pred_class, (-1, 6, K.int_shape(pred_class)[3]))
+    target_mask_class = tf.cast(K.reshape(target_mask_class, (-1, 6)), tf.int64)
 
     positive_roi_ix = tf.where(target_class_ids > 0)[:, 0]
 
@@ -1517,7 +1525,7 @@ def keypoint_weight_loss_graph(target_keypoint_weight, pred_class, target_class_
     loss = tf.reduce_mean(loss)
     return loss
 
-def test_keypoint_mrcnn_mask_loss_graph(target_keypoints, target_keypoint_weights, target_class_ids, pred_keypoint_logits,mask_shape=[56,56],number_point=17):
+def test_keypoint_mrcnn_mask_loss_graph(target_keypoints, target_keypoint_weights, target_class_ids, pred_keypoint_logits,mask_shape=[56,56],number_point=6):
     """
     This function is just use for inspecting the keypoint_mrcnn_mask_loss_graph
     target_keypoints: [batch, num_rois, num_keypoints].
@@ -1579,7 +1587,7 @@ def test_keypoint_mrcnn_mask_loss_graph(target_keypoints, target_keypoint_weight
 
 
 
-def keypoint_mrcnn_mask_loss_graph(target_keypoints, target_keypoint_weights, target_class_ids, pred_keypoints_logit, weight_loss = True, mask_shape=[56,56],number_point=17):
+def keypoint_mrcnn_mask_loss_graph(target_keypoints, target_keypoint_weights, target_class_ids, pred_keypoints_logit, weight_loss = True, mask_shape=[56,56],number_point=6):
     """Mask softmax cross-entropy loss for the keypoint head.
 
     target_keypoints: [batch, num_rois, num_keypoints].
@@ -1667,7 +1675,7 @@ def load_image_gt(dataset, config, image_id, augment=False,
     image = dataset.load_image(image_id)
     mask, class_ids = dataset.load_mask(image_id)
     shape = image.shape
-    image, window, scale, padding = utils.resize_image(
+    image, window, scale, padding, crop = utils.resize_image(
         image,
         min_dim=config.IMAGE_MIN_DIM,
         max_dim=config.IMAGE_MAX_DIM,
@@ -1738,7 +1746,7 @@ def load_image_gt_keypoints(dataset, config, image_id, augment=True,
     keypoints, mask, class_ids = dataset.load_keypoints(image_id)
     assert (config.NUM_KEYPOINTS == keypoints.shape[1])
 
-    image, window, scale, padding = utils.resize_image(
+    image, window, scale, padding,crop = utils.resize_image(
         image,
         min_dim=config.IMAGE_MIN_DIM,
         max_dim=config.IMAGE_MAX_DIM,
@@ -1929,16 +1937,18 @@ def build_detection_targets(rpn_rois, gt_class_ids, gt_boxes, gt_masks, config):
             gt_h = gt_y2 - gt_y1
             # Resize mini mask to size of GT box
             placeholder[gt_y1:gt_y2, gt_x1:gt_x2] = \
-                np.round(scipy.misc.imresize(class_mask.astype(float), (gt_h, gt_w),
-                                             interp='nearest') / 255.0).astype(bool)
+                np.round(np.array(Image.fromarray(class_mask.astype(float)).resize((gt_w, gt_h))))
+                # np.round(scipy.misc.imresize(class_mask.astype(float), (gt_h, gt_w),
+                #                              interp='nearest') / 255.0).astype(bool)
             # Place the mini batch in the placeholder
             class_mask = placeholder
 
         # Pick part of the mask and resize it
         y1, x1, y2, x2 = rois[i].astype(np.int32)
         m = class_mask[y1:y2, x1:x2]
-        mask = scipy.misc.imresize(
-            m.astype(float), config.MASK_SHAPE, interp='nearest') / 255.0
+        mask = np.round(np.array(Image.fromarray(class_mask.astype(float)).resize(config.MASK_SHAPE)))
+        # mask = scipy.misc.imresize(
+        #     m.astype(float), config.MASK_SHAPE, interp='nearest') / 255.0
         masks[i, :, :, class_id] = mask
 
     return rois, roi_gt_class_ids, bboxes, masks
@@ -2881,10 +2891,11 @@ class MaskRCNN():
                       "mrcnn_class_loss", "mrcnn_bbox_loss", "keypoint_mrcnn_mask_loss", "mrcnn_mask_loss"]
         for name in loss_names:
             layer = self.keras_model.get_layer(name)
+
             if layer.output in self.keras_model.losses:
                 continue
             self.keras_model.add_loss(
-                tf.reduce_mean(layer.output, keep_dims=True))
+                tf.math.reduce_mean(layer.output, keepdims=True))
 
         # Add L2 Regularization
         # Skip gamma and beta weights of batch normalization layers.
@@ -3072,7 +3083,7 @@ class MaskRCNN():
         for image in images:
             # Resize image to fit the model expected size
             # TODO: move resizing to mold_image()
-            molded_image, window, scale, padding = utils.resize_image(
+            molded_image, window, scale, padding,crop = utils.resize_image(
                 image,
                 min_dim=self.config.IMAGE_MIN_DIM,
                 max_dim=self.config.IMAGE_MAX_DIM,
@@ -3474,6 +3485,28 @@ def compose_image_meta(image_id, image_shape, window, active_class_ids):
     )
     return meta
 
+def parse_image_meta(meta):
+    """Parses an array that contains image attributes to its components.
+    See compose_image_meta() for more details.
+
+    meta: [batch, meta length] where meta length depends on NUM_CLASSES
+
+    Returns a dict of the parsed values.
+    """
+    image_id = meta[:, 0]
+    original_image_shape = meta[:, 1:4]
+    image_shape = meta[:, 4:7]
+    window = meta[:, 7:11]  # (y1, x1, y2, x2) window of image in in pixels
+    scale = meta[:, 11]
+    active_class_ids = meta[:, 12:]
+    return {
+        "image_id": image_id.astype(np.int32),
+        "original_image_shape": original_image_shape.astype(np.int32),
+        "image_shape": image_shape.astype(np.int32),
+        "window": window.astype(np.int32),
+        "scale": scale.astype(np.float32),
+        "active_class_ids": active_class_ids.astype(np.int32),
+    }
 
 def parse_image_meta_graph(meta):
     """Parses a tensor that contains image attributes to its components.
