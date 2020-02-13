@@ -1,15 +1,5 @@
 assets/
-coco-annotator/
-datasets/balloon/
+models/
 datasets/pantograph/test/
-model/
 resources/
-mask_rcnn_coco_humanpose.h5
-mask_rcnn_coco.h5
-images/
-dev/balloon/
 dev/coco/
-dev/shapes/
-dev/train/
-mrcnn/orig_hpe/
-mrcnn/orig_mrcnn/
