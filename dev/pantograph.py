@@ -54,9 +54,9 @@ if tools not in sys.path:
 # for i in sys.path:
 #     print(i)
 
-from cocotools.coco import COCO
-from cocotools.cocoeval import COCOeval
-from cocotools import mask as maskUtils
+from pycocotools.coco import COCO
+from pycocotools.cocoeval import COCOeval
+from pycocotools import mask as maskUtils
 
 
 # # Directory to save logs and trained model
@@ -145,7 +145,7 @@ class PantographDataset(utils.Dataset):
         dataset_dir = os.path.join(dataset_dir, subset)
         
         # Set path to annotations and open
-        ANNO_FILE = os.path.join(dataset_dir, "sample_region_data.json")
+        ANNO_FILE = os.path.join(dataset_dir, "region_data.json")
         pantograph = COCO(ANNO_FILE)
 
         # Set path to images
