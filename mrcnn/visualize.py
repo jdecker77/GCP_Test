@@ -348,9 +348,6 @@ def display_keypoints(image, boxes, keypoints, class_ids, class_names,
                 circle = patches.Circle((Joint[0],Joint[1]),radius=1,edgecolor=color,facecolor='none')
                 ax.add_patch(circle)
 
-        # Skeleton: 11*2
-        limb_colors = [[0, 0, 255], [0, 170, 255], [0, 255, 170], [0, 255, 0], [170, 255, 0],
-                  [255, 170, 0], [255, 0, 0], [255, 0, 170], [170, 0, 255], [170,170,0],[170,0,170]]
         if(len(skeleton)):
 
             # Turn list to np array to get tuples
@@ -384,30 +381,6 @@ def display_keypoints(image, boxes, keypoints, class_ids, class_names,
             
                 # Keep prev pnt
                 prev = pnt
-
-
-
-            # skeleton = np.reshape(skeleton,(-1,2))
-            # neck = np.array((keypoints[i, 5, :] + keypoints[i,6,:])/2).astype(int)
-            # if(keypoints[i, 5, 2] == 0 or keypoints[i,6,2] == 0):
-            #     neck = [0,0,0]
-            # limb_index = -1
-            # for limb in skeleton:
-            #     limb_index += 1
-            #     start_index, end_index = limb  # connection joint index from 0 to 16
-            #     if(start_index == -1):
-            #         Joint_start = neck
-            #     else:
-            #         Joint_start = keypoints[i][start_index]
-            #     if(end_index == -1):
-            #         Joint_end = neck
-            #     else:
-            #         Joint_end = keypoints[i][end_index]
-            #     # both are Annotated
-            #     # Joint:(x,y,v)
-            #     if ((Joint_start[2] != 0) & (Joint_end[2] != 0)):
-            #         # print(color)
-            #         cv2.line(skeleton_image, tuple(Joint_start[:2]), tuple(Joint_end[:2]), limb_colors[limb_index],5)
 
 
     ax.imshow(skeleton_image.astype(np.uint8))
@@ -716,18 +689,24 @@ def display_weight_stats(model):
     display_table(table)
 
 
-def DrawBoxes(ax,anno):
+def DrawBoxes(ax,bbox,color):
 
     # Draw boxes
-    if len(anno['bbox']) == 4:
+    if len(bbox) == 4:
 #         print('Drawing bbox')
-        rect = plt.Rectangle((anno['bbox'][0], anno['bbox'][1]),anno['bbox'][2], anno['bbox'][3], color = (anno['color'][0]/255,anno['color'][1]/255,anno['color'][2]/255), alpha=.2)
-        ax.add_artist(rect)
-    
-    # Draw boxes
-    # if len(bbox) == 4:
-    #     rect = plt.Rectangle((bbox[0], bbox[1]),bbox[2], bbox[3], color=color)
-    #     ax.add_artist(rect)
+
+        color = (color[0]/255,color[1]/255,color[2]/255)
+
+        y1 = bbox[0] 
+        x1 = bbox[1]
+        y2 = bbox[2]
+        x2 = bbox[3]
+
+        p = patches.Rectangle((x1, y1), x2 - x1, y2 - y1, linewidth=2,
+                              alpha=.4, linestyle='dotted',
+                              edgecolor=color, facecolor='none')
+        ax.add_patch(p)
+
         
     return ax
 
@@ -750,21 +729,27 @@ def DrawMask(ax,mask,c):
     
     return ax
 
-def DrawMasks(ax,anno):
+def DrawMasks(ax,mask,color):
 #     print('Drawing Masks')
     
-    # normalize color
-    c = anno['color']
-    c = [i/255 for i in c]
-    
-    # Draw masks
-    for i,mask in enumerate(anno['segmentation']):
-#         if i == 0:
-        ax = DrawMask(ax,mask,c)
+    color = (color[0]/255,color[1]/255,color[2]/255)
+
+    # masked_image = apply_mask(masked_image, mask, color)
+    # # Mask Polygon
+    # # Pad to ensure proper polygons for masks that touch image edges.
+    padded_mask = np.zeros((mask.shape[0] + 2, mask.shape[1] + 2), dtype=np.uint8)
+    padded_mask[1:-1, 1:-1] = mask
+    contours = find_contours(padded_mask, 0.5)
+    for verts in contours:
+        # Subtract the padding and flip (y, x) to (x, y)
+        verts = np.fliplr(verts) - 1
+        p = Polygon(verts, facecolor="none", edgecolor=color,alpha=.5,linewidth=2,linestyle='dashed')
+        ax.add_patch(p)
             
     return ax
 
 def DrawKP(ax,curr):
+    # print(curr[0],curr[1])
     circle1 = plt.Circle((curr[0], curr[1]),3.0, color=curr[2])
     ax.add_artist(circle1)
     return ax
@@ -776,22 +761,26 @@ def DrawLine(ax,prev,curr):
         ax.plot([prev[0],curr[0]],[prev[1],curr[1]],color=curr[2])
     return ax
     
-def DrawKeypoints(ax,anno,cat):
+def DrawKeypoints(ax,keypoints,skeleton,color):
 #     print('Drawing keypoints')
     
     # Get kp names/nums/connections
-    kp = anno['keypoints']
-    kp_names = cat['keypoints']
-    skeleton = cat['skeleton']
+    kp = keypoints
+    # print(kp.shape)
+    kp_names = ['L1','L2','L3','R3','R2','R1']
     
     # Turn list to np array to get tuples
     a = np.array(kp)
+    # print(a.shape)
     a = a.reshape(6,3)
+    # print(a.shape)
     prev = []
     for x in range(0, a.shape[0]):
         
         # Convert each iter back to list
         pnt = list(a[x])
+        # print(pnt)
+        # pnt = [pnt[1],pnt[0]]
 #         print(pnt)
     
         # Manage color - white/black or cat color
@@ -801,7 +790,7 @@ def DrawKeypoints(ax,anno,cat):
         elif c == 0:
             c = (255,255,255)
         else:
-            c = anno['color']
+            c = color
         c = [i/255 for i in c]
         # Add color back in
         pnt[2] = c
@@ -812,6 +801,8 @@ def DrawKeypoints(ax,anno,cat):
         # Draw line after first pnt
         initVal = 0
         if len(prev)> 0 and prev[0] > initVal and prev[1] > initVal and pnt[0] > initVal and pnt[1] > initVal:
+            # prev = [prev[1],prev[0]]
+            # pnt = [pnt[1],pnt[0]]
             ax = DrawLine(ax,prev,pnt)
     
         # Keep prev pnt
@@ -823,66 +814,25 @@ def DrawKeypoints(ax,anno,cat):
 # change to pass image, annotation data
 def DrawAnnotations(img, categories, annotations,obj):
     
-#     print(path)
-    # Open image
-    # img = Image.open(path)
-
-    # Set anno file
-#     annotations_file = "/".join(path.split('/')[:-1])+'/test_region_data.json'
-#     print(annotations_file)
-
-    # Get image name
-    # img_name = path.split('/')[-1]
-
-    # red=front, green=middle, blue=rear
-    colors = [(255,0,0),(0,255,0),(0,0,255)]
-    
-    # # Read anno file
-    # obj = ReadJSON(ANNOTATION_FILE)
-    
-    # # Check if image is in file
-    # imgExists = False
-    # # Get all paths
-    # for i,imgName in enumerate(obj['images']):
-    #     if img_name == imgName['file_name']:
-    #         imgExists = True
-    #         img_id = obj['images'][i]['id']
-    #         break
-    # if not imgExists:
-    #     print("Could not find image in annotations file.")
-    # else:
-
-    # Get catids from image
-    # cat_ids = obj['images'][i]['category_ids']
-    cat_ids = class_ids
-
-    
-    
     # Define each image 
     figsize = [25,25]
     fig = plt.figure(figsize=figsize)
     ax = fig.add_subplot()
 
-    # Draw annos for categories. Add each anno to ax.
-    for i,cat_id in enumerate(cat_ids):
-        for j,anno in enumerate(obj['annotations']):
-            # Match on image name and cat ID
-            # if img_id == anno['image_id'] and cat_id == anno['category_id'] and cat_id in categories:
-            # print(img_id)
-            if 1 in annotations:
-                ax = DrawBoxes(ax,anno)
-            if 2 in annotations:
-                ax = DrawMasks(ax,anno)
-            if 3 in annotations:
-                ax = DrawKeypoints(ax,anno,obj['categories'][cat_id-1])
-                
-    # Image info does not print with img
-    print('Image name:',img_name)
-    print("Image ID:",img_id)
-    print('category IDS:',cat_ids)
-    print('---------------------')
-    
-    # Draw image
+    for i,cat_id in enumerate(categories):
+        for ann_id in annotations:
+            # bbox, color, 
+            if ann_id == 1:
+                # print('Draw Boxes')
+                ax = DrawBoxes(ax,obj['bbox'][cat_id],obj['color'][cat_id])
+            if ann_id == 2:
+                # print('Draw Masks')
+                ax = DrawMasks(ax,obj['segmentation'][:, :,cat_id],obj['color'][cat_id])
+            if ann_id == 3:
+                # print('Draw Keypoints')
+                # kp = [obj['keypoints'][:, :,0][i],obj['keypoints'][:, :,1][i],obj['keypoints'][:, :,2][i]]
+                ax = DrawKeypoints(ax,obj['keypoints'][cat_id, :,:],obj['skeleton'],obj['color'][cat_id]) #obj['keypoints'][:, :,cat_id]
+                    
     ax.imshow(img)
 
 

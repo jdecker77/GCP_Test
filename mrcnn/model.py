@@ -21,6 +21,7 @@ from collections import OrderedDict
 import numpy as np
 import scipy.misc
 from PIL import Image
+import cv2
 import tensorflow as tf
 import keras
 import keras.backend as K
@@ -1757,12 +1758,29 @@ def load_image_gt_keypoints(dataset, config, image_id, augment=True,
 
     # Random horizontal flips.
 
-    if augment:
-        if random.randint(0, 1):
-            image = np.fliplr(image)
-            mask = np.fliplr(mask)
-            keypoint_names,keypoint_flip_map = utils.get_keypoints()
-            keypoints = utils.flip_keypoints(keypoint_names,keypoint_flip_map,keypoints, image.shape[1])
+    # if augment:
+    #     if random.randint(0, 1):
+
+            # Equalize histogram
+            # img = cv2.imread(image)
+            # img_yuv = cv2.cvtColor(image, cv2.COLOR_BGR2YUV)
+
+            # # equalize the histogram of the Y channel
+            # img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])
+
+            # # convert the YUV image back to RGB format
+            # image = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
+
+            # cv2.imshow('Color input image', image)
+            # cv2.imshow('Histogram equalized', img_output)
+            # cv2.waitKey(0)
+
+
+            # Flip horizontal
+            # image = np.fliplr(image)
+            # mask = np.fliplr(mask)
+            # keypoint_names,keypoint_flip_map = utils.get_keypoints()
+            # keypoints = utils.flip_keypoints(keypoint_names,keypoint_flip_map,keypoints, image.shape[1])
 
     # Bounding boxes. Note that some boxes might be all zeros
     # if the corresponding mask got cropped out.
@@ -3066,6 +3084,7 @@ class MaskRCNN():
         self.epoch = max(self.epoch, epochs)
 
     def mold_inputs(self, images):
+        print('Molding Inputs')
         """Takes a list of images and modifies them to the format expected
         as an input to the neural network.
         images: List of image matricies [height,width,depth]. Images can have
@@ -3301,15 +3320,17 @@ class MaskRCNN():
                 log("image", image)
         # Mold inputs to format expected by the neural network
         molded_images, image_metas, windows = self.mold_inputs(images)
+        print(molded_images.shape)
         if verbose:
             log("molded_images", molded_images)
             log("image_metas", image_metas)
             log("windows",windows)
         # Run human pose detection
         #[detections, mrcnn_class, mrcnn_bbox, rpn_rois, rpn_class, rpn_bbox, mrcnn_mask, keypoint_mcrcnn_prob]
+        print('Starting Detection')
         detections, mrcnn_class, mrcnn_bbox, \
             rois, rpn_class, rpn_bbox, mrcnn_mask, mrcnn_keypoint_prob =\
-            self.keras_model.predict([molded_images, image_metas], verbose=0)
+            self.keras_model.predict([molded_images, image_metas], verbose=1)
         if verbose:
             log("rpn_class", rpn_class)
             log("rpn_bbox", rpn_bbox)

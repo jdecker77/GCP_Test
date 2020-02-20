@@ -89,7 +89,7 @@ class PantographConfig(Config):
     NUM_CLASSES = 1 + 3  # Background + pantograph
 
     # Number of training steps per epoch
-    STEPS_PER_EPOCH = 2
+    STEPS_PER_EPOCH = 100
 
     # Skip detections with < 90% confidence
     DETECTION_MIN_CONFIDENCE = 0.9
@@ -116,11 +116,6 @@ class PantographConfig(Config):
 
     RPN_ANCHOR_STRIDE = 2
 
-    # PART_STR = ['L1','L2','L3','R3','R2','R1']
-    # LIMBS = [0,1,1,2,2,3,3,4,4,5]
-
-# Why is this here?
-Person_ID = 1
 
 
 ############################################################
@@ -184,10 +179,12 @@ class PantographDataset(utils.Dataset):
 
         #the connection between 2 close keypoints
         # Change personID to catID
-        self._skeleton = pantograph.loadCats(Person_ID)[0]["skeleton"]
+        # Why is this here?
+        cat_ID = 1
+        self._skeleton = pantograph.loadCats(cat_ID)[0]["skeleton"]
         self._skeleton = np.array(self._skeleton,dtype=np.int32)
 
-        self._keypoint_names = pantograph.loadCats(Person_ID)[0]["keypoints"]
+        self._keypoint_names = pantograph.loadCats(cat_ID)[0]["keypoints"]
 
         print("Skeleton:",np.shape(self._skeleton))
         print("Keypoint names:",np.shape(self._keypoint_names))
