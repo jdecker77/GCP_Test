@@ -1,7 +1,7 @@
 assets/
 models/
-datasets/pantograph/test/
 resources/
 dev/coco/
+datasets/pantograph/test/annotations/*.bmp
 datasets/pantograph/train/annotations/*.bmp
 datasets/pantograph/val/annotations/*.bmp

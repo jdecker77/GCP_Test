@@ -311,7 +311,8 @@ class PantographDataset(utils.Dataset):
             keypoints = np.array(keypoints,dtype=np.int32)
             class_ids = np.array(class_ids, dtype=np.int32)
             masks = np.stack(instance_masks, axis=2)
-            return keypoints, masks, class_ids
+            bbox = utils.extract_bboxes(masks)
+            return keypoints, masks, bbox, class_ids
         else:
             # Call super class to return an empty mask
             return super(CocoDataset, self).load_keypoints(image_id)

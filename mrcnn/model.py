@@ -1742,9 +1742,9 @@ def load_image_gt_keypoints(dataset, config, image_id, augment=True,
     """
     # Load image and mask
     image = dataset.load_image(image_id)
-    # mask, class_ids = dataset.load_mask(image_id)
+    mask, class_ids = dataset.load_mask(image_id)
     shape = image.shape
-    keypoints, mask, class_ids = dataset.load_keypoints(image_id)
+    keypoints, masks, bbox, class_ids = dataset.load_keypoints(image_id)
     assert (config.NUM_KEYPOINTS == keypoints.shape[1])
 
     image, window, scale, padding,crop = utils.resize_image(
