@@ -94,6 +94,9 @@ class PantographConfig(Config):
     # Skip detections with < 90% confidence
     DETECTION_MIN_CONFIDENCE = 0.9
 
+    USE_MINI_MASK = True
+    MINI_MASK_SHAPE = (224, 224)
+
     NUM_KEYPOINTS = 6
     MASK_SHAPE = [28, 28]
     KEYPOINT_MASK_SHAPE = [56,56]
@@ -101,7 +104,7 @@ class PantographConfig(Config):
     TRAIN_ROIS_PER_IMAGE = 100
     MAX_GT_INSTANCES = 128
     RPN_TRAIN_ANCHORS_PER_IMAGE = 150
-    USE_MINI_MASK = True
+    
     MASK_POOL_SIZE = 14
     KEYPOINT_MASK_POOL_SIZE = 7
     LEARNING_RATE = 0.002
@@ -136,7 +139,7 @@ class PantographDataset(utils.Dataset):
         subset: Subset to load: train or val
         """
         # Train or validation dataset?
-        assert subset in ["train", "val"]
+        assert subset in ["train", "val",'test']
         dataset_dir = os.path.join(dataset_dir, subset)
         
         # Set path to annotations and open

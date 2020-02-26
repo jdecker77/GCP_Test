@@ -675,21 +675,48 @@ def minimize_mask(bbox, mask, mini_shape):
 
     See inspect_data.ipynb notebook for more details.
     """
+    print('Starting with mask shape:',mask.shape)
     mini_mask = np.zeros(mini_shape + (mask.shape[-1],), dtype=bool)
     for i in range(mask.shape[-1]):
         m = mask[:, :, i]
+        print(m.shape)
         y1, x1, y2, x2 = bbox[i][:4]
         m = m[y1:y2, x1:x2]
         if m.size == 0:
             raise Exception("Invalid bounding box with area of zero")
 
         m = np.array(Image.fromarray(m).resize((mini_shape[1],mini_shape[0])))
+        # print(m.shape)
         # m = scipy.misc.imresize(m.astype(float), mini_shape, interp='bilinear')
         # _positon = np.argmax(m)  # get the index of max in the a
         # m_index, n_index = divmod(_positon, mini_shape[0])
         # print("Max in oringal:", (m_index, n_index), m[m_index, n_index])
-        mini_mask[:, :, i] = np.where(m >= 128, 1, 0)
+        mini_mask[:, :, i] = np.where(m >= 1, 1, 0)
+
+    # mini_mask = expand_mask(bbox, mini_mask, (1024,1024))
+
     return mini_mask
+
+def expand_mask(bbox, mini_mask, image_shape):
+    """Resizes mini masks back to image size. Reverses the change
+    of minimize_mask().
+
+    See inspect_data.ipynb notebook for more details.
+    """
+    mask = np.zeros(image_shape[:2] + (mini_mask.shape[-1],), dtype=bool)
+    for i in range(mask.shape[-1]):
+        m = mini_mask[:, :, i]
+        y1, x1, y2, x2 = bbox[i][:4]
+        h = y2 - y1
+        w = x2 - x1
+        m = np.array(Image.fromarray(m).resize((w, h)))
+        # m = scipy.misc.imresize(m.astype(float), (h, w), interp='bilinear')
+        # _positon = np.argmax(m)  # get the index of max in the a
+        # m_index, n_index = divmod(_positon, w)
+        # print("Max in resize:", (m_index, n_index), m[m_index, n_index])
+        mask[y1:y2, x1:x2, i] = np.where(m >= 1, 1, 0)
+
+    return mask
 
 # import cv2
 def minimize_keypoint_mask(bbox, keypointmask, mini_shape):
@@ -766,26 +793,7 @@ def expand_keypoint_mask(bbox,mini_mask,image_shape):
     return keypoint_mask
 
 
-def expand_mask(bbox, mini_mask, image_shape):
-    """Resizes mini masks back to image size. Reverses the change
-    of minimize_mask().
 
-    See inspect_data.ipynb notebook for more details.
-    """
-    mask = np.zeros(image_shape[:2] + (mini_mask.shape[-1],), dtype=bool)
-    for i in range(mask.shape[-1]):
-        m = mini_mask[:, :, i]
-        y1, x1, y2, x2 = bbox[i][:4]
-        h = y2 - y1
-        w = x2 - x1
-        m = np.array(Image.fromarray(m).resize((w, h)))
-        # m = scipy.misc.imresize(m.astype(float), (h, w), interp='bilinear')
-        # _positon = np.argmax(m)  # get the index of max in the a
-        # m_index, n_index = divmod(_positon, w)
-        # print("Max in resize:", (m_index, n_index), m[m_index, n_index])
-        mask[y1:y2, x1:x2, i] = np.where(m >= 128, 1, 0)
-
-    return mask
 
 
 # TODO: Build and use this function to reduce code duplication

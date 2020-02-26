@@ -731,7 +731,6 @@ def DrawBoxes(ax,bbox,color):
 def DrawMasks(ax,mask,color):
 #     print('Drawing Masks')
     
-    # masked_image = apply_mask(masked_image, mask, color)
     # # Mask Polygon
     # # Pad to ensure proper polygons for masks that touch image edges.
     padded_mask = np.zeros((mask.shape[0] + 2, mask.shape[1] + 2), dtype=np.uint8)

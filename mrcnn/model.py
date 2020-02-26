@@ -1742,7 +1742,7 @@ def load_image_gt_keypoints(dataset, config, image_id, augment=True,
     """
     # Load image and mask
     image = dataset.load_image(image_id)
-    mask, class_ids = dataset.load_mask(image_id)
+    # mask, class_ids = dataset.load_mask(image_id)
     shape = image.shape
     keypoints, masks, bbox, class_ids = dataset.load_keypoints(image_id)
     assert (config.NUM_KEYPOINTS == keypoints.shape[1])
@@ -1753,7 +1753,7 @@ def load_image_gt_keypoints(dataset, config, image_id, augment=True,
         max_dim=config.IMAGE_MAX_DIM,
         padding=config.IMAGE_PADDING,
         mode=config.IMAGE_RESIZE_MODE)
-    mask = utils.resize_mask(mask, scale, padding)
+    masks = utils.resize_mask(masks, scale, padding)
     keypoints = utils.resize_keypoints(keypoints, image.shape[:2], scale, padding)
 
     # Random horizontal flips.
@@ -1787,7 +1787,7 @@ def load_image_gt_keypoints(dataset, config, image_id, augment=True,
     # bbox: [num_instances, (y1, x1, y2, x2)]
     # print("mask shape:",np.shape(mask))
     # print("keypoint mask shape:",np.shape(keypoint_mask))
-    bbox = utils.extract_bboxes(mask)
+    bbox = utils.extract_bboxes(masks)
 
 
     # Active classes
@@ -1801,7 +1801,8 @@ def load_image_gt_keypoints(dataset, config, image_id, augment=True,
 
     # Resize masks to smaller size to reduce memory usage
     if use_mini_mask:
-        mask = utils.minimize_mask(bbox, mask, config.MINI_MASK_SHAPE)
+        masks = utils.minimize_mask(bbox, masks, config.MINI_MASK_SHAPE)
+        # masks = utils.minimize_keypoint_mask(bbox, masks, config.MINI_MASK_SHAPE)
 
 
     # Image meta data
@@ -1809,7 +1810,7 @@ def load_image_gt_keypoints(dataset, config, image_id, augment=True,
     image_meta = compose_image_meta(image_id, shape, window, active_class_ids)
 
 
-    return image, image_meta, class_ids, bbox, mask, keypoints
+    return image, image_meta, class_ids, bbox, masks, keypoints
 
 
 def build_detection_targets(rpn_rois, gt_class_ids, gt_boxes, gt_masks, config):
@@ -3042,7 +3043,7 @@ class MaskRCNN():
         # Data keypoint generators
 
         train_generator = data_generator_keypoint(train_dataset, self.config, shuffle=True,
-                                        batch_size=self.config.BATCH_SIZE,augment =True)
+                                        batch_size=self.config.BATCH_SIZE,augment =False)
         val_generator = data_generator_keypoint(val_dataset, self.config, shuffle=True,
                                        batch_size=self.config.BATCH_SIZE,
                                        augment=False)
