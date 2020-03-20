@@ -689,7 +689,7 @@ def display_weight_stats(model):
     display_table(table)
 
 
-def DrawBoxes(ax,bbox,color):
+def DrawBoxes(ax,bbox,color,label,score=None):
 
     # Draw boxes
     if len(bbox) == 4:
@@ -706,6 +706,10 @@ def DrawBoxes(ax,bbox,color):
                               edgecolor=color, facecolor='none')
         ax.add_patch(p)
 
+        
+        caption = "{} {:.3f}".format(label, score) if score else label
+        ax.text(x1, y1 + 8, caption,
+                color='w', size=11, backgroundcolor="none")
         
     return ax
 
@@ -757,7 +761,7 @@ def DrawLine(ax,prev,curr):
         ax.plot([prev[0],curr[0]],[prev[1],curr[1]],color=curr[2])
     return ax
     
-def DrawKeypoints(ax,keypoints,color,skeleton=None):
+def DrawKeypoints(ax,keypoints,color,skeleton=None,scores=None):
 #     print('Drawing keypoints')
     
     # Get kp names/nums/connections
@@ -781,7 +785,9 @@ def DrawKeypoints(ax,keypoints,color,skeleton=None):
     
         # Manage color based on visibility - white/black or cat color
         c = pnt[2]
-        if c == 1: 
+        if scores is not None:
+            c = color
+        elif c == 1: 
             c = (0,0,0)
         elif c == 0:
             c = (1,1,1)
@@ -805,8 +811,8 @@ def DrawKeypoints(ax,keypoints,color,skeleton=None):
 
 
 # change to pass image, annotation data
-# def DrawAnnotations(img, categories, annotations,obj):
-def DrawAnnotations(image, class_ids, bbox=None, masks=None, keypoints=None, skeleton=None,figsize=[18,18]):
+# add class labels and scores
+def DrawAnnotations(image, class_ids, class_names, bbox=None, masks=None, keypoints=None, skeleton=None, scores=None, figsize=[18,18]):
 
     colors = [(255,0,0),(0,255,0),(0,0,255)]
     normalizedColors = []
@@ -828,14 +834,19 @@ def DrawAnnotations(image, class_ids, bbox=None, masks=None, keypoints=None, ske
 
     for cat_id in class_ids: # [1,2,3]
         if bbox is not None:
-            ax = DrawBoxes(ax,bbox[cat_id-1],normalizedColors[cat_id-1])
+            label = class_names[cat_id-1]
+            if scores is not None:
+                score = scores[cat_id-1]
+            else:
+                score = None
+            ax = DrawBoxes(ax,bbox[cat_id-1],normalizedColors[cat_id-1],label,score)
         if masks is not None:
             ax = DrawMasks(ax,masks[:, :,cat_id-1],normalizedColors[cat_id-1])
         if keypoints is not None:
             if skeleton is not None:
-                ax = DrawKeypoints(ax,keypoints[cat_id-1, :,:],normalizedColors[cat_id-1],skeleton)
+                ax = DrawKeypoints(ax,keypoints[cat_id-1, :,:],normalizedColors[cat_id-1],skeleton.scores)
             else:
-                ax = DrawKeypoints(ax,keypoints[cat_id-1, :,:],normalizedColors[cat_id-1])
+                ax = DrawKeypoints(ax,keypoints[cat_id-1, :,:],normalizedColors[cat_id-1],scores)
                     
     ax.imshow(image)
 
