@@ -90,6 +90,8 @@ class PantographConfig(Config):
 
     # Number of training steps per epoch
     STEPS_PER_EPOCH = 100
+    VALIDATION_STEPS = 50
+    BACKBONE = "resnet101"
 
     # Skip detections with < 90% confidence
     DETECTION_MIN_CONFIDENCE = 0.9
@@ -392,6 +394,7 @@ def build_coco_results(dataset, image_ids, rois, class_ids, scores, masks):
 
 
 def evaluate_coco(model, dataset, coco, eval_type="bbox", limit=0, image_ids=None):
+import time 
     """Runs official COCO evaluation.
     dataset: A Dataset object with valiadtion data
     eval_type: "bbox" or "segm" for bounding box or segmentation evaluation
@@ -436,9 +439,9 @@ def evaluate_coco(model, dataset, coco, eval_type="bbox", limit=0, image_ids=Non
     cocoEval.accumulate()
     cocoEval.summarize()
 
-    print("Prediction time: {}. Average {}/image".format(
-        t_prediction, t_prediction / len(image_ids)))
-    print("Total time: ", time.time() - t_start)
+    # print("Prediction time: {}. Average {}/image".format(
+    #     t_prediction, t_prediction / len(image_ids)))
+    # print("Total time: ", time.time() - t_start)
 
 
 def train(model):

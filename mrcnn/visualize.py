@@ -839,14 +839,14 @@ def DrawAnnotations(image, class_ids, class_names, bbox=None, masks=None, keypoi
                 score = scores[cat_id-1]
             else:
                 score = None
-            ax = DrawBoxes(ax,bbox[cat_id-1],normalizedColors[cat_id-1],label,score)
+            ax = DrawBoxes(ax,bbox[cat_id-1],normalizedColors[cat_id-1],label,score=score)
         if masks is not None:
             ax = DrawMasks(ax,masks[:, :,cat_id-1],normalizedColors[cat_id-1])
         if keypoints is not None:
             if skeleton is not None:
-                ax = DrawKeypoints(ax,keypoints[cat_id-1, :,:],normalizedColors[cat_id-1],skeleton.scores)
+                ax = DrawKeypoints(ax,keypoints[cat_id-1, :,:],normalizedColors[cat_id-1],skeleton=skeleton,scores=scores)
             else:
-                ax = DrawKeypoints(ax,keypoints[cat_id-1, :,:],normalizedColors[cat_id-1],scores)
+                ax = DrawKeypoints(ax,keypoints[cat_id-1, :,:],normalizedColors[cat_id-1],scores=scores)
                     
     ax.imshow(image)
 

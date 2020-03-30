@@ -675,11 +675,11 @@ def minimize_mask(bbox, mask, mini_shape):
 
     See inspect_data.ipynb notebook for more details.
     """
-    print('Starting with mask shape:',mask.shape)
+    # print('Starting with mask shape:',mask.shape)
     mini_mask = np.zeros(mini_shape + (mask.shape[-1],), dtype=bool)
     for i in range(mask.shape[-1]):
         m = mask[:, :, i]
-        print(m.shape)
+        # print(m.shape)
         y1, x1, y2, x2 = bbox[i][:4]
         m = m[y1:y2, x1:x2]
         if m.size == 0:
