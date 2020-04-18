@@ -1756,6 +1756,12 @@ def load_image_gt_keypoints(dataset, config, image_id, augment=True,
     masks = utils.resize_mask(masks, scale, padding)
     keypoints = utils.resize_keypoints(keypoints, image.shape[:2], scale, padding)
 
+    # Bounding boxes. Note that some boxes might be all zeros if the corresponding mask got cropped out.
+    # bbox: [num_instances, (y1, x1, y2, x2)]
+    # print("mask shape:",np.shape(mask))
+    # print("keypoint mask shape:",np.shape(keypoint_mask))
+    bbox = utils.extract_bboxes(masks)
+
     # Random horizontal flips.
 
     # if augment:
@@ -1782,12 +1788,7 @@ def load_image_gt_keypoints(dataset, config, image_id, augment=True,
             # keypoint_names,keypoint_flip_map = utils.get_keypoints()
             # keypoints = utils.flip_keypoints(keypoint_names,keypoint_flip_map,keypoints, image.shape[1])
 
-    # Bounding boxes. Note that some boxes might be all zeros
-    # if the corresponding mask got cropped out.
-    # bbox: [num_instances, (y1, x1, y2, x2)]
-    # print("mask shape:",np.shape(mask))
-    # print("keypoint mask shape:",np.shape(keypoint_mask))
-    bbox = utils.extract_bboxes(masks)
+    
 
 
     # Active classes

@@ -113,7 +113,16 @@ def display_instances(image, boxes, masks, class_ids, class_names,
         _, ax = plt.subplots(1, figsize=figsize)
 
     # Generate random colors
-    colors = random_colors(N)
+    # colors = random_colors(N)
+    colors = [(255,0,0),(0,255,0),(0,0,255)]
+    normalizedColors = []
+    for color in colors:
+        newColor = []
+        for v in color:
+            tmp = v/255
+            newColor.append(tmp)
+        normalizedColors.append(newColor)
+    colors = normalizedColors
 
     # Show area outside image boundaries.
     height, width = image.shape[:2]
@@ -418,7 +427,19 @@ def draw_rois(image, rois, refined_rois, mask, class_ids, class_names, limit=10)
 
     for i, id in enumerate(ids):
         color = np.random.rand(3)
+        colors = [(255,0,0),(0,255,0),(0,0,255)]
+        normalizedColors = []
+        for color in colors:
+            newColor = []
+            for v in color:
+                tmp = v/255
+                newColor.append(tmp)
+            normalizedColors.append(newColor)
+        colors = normalizedColors
+
         class_id = class_ids[id]
+        if class_id:
+            color = colors[class_id-1]
         # ROI
         y1, x1, y2, x2 = rois[id]
         p = patches.Rectangle((x1, y1), x2 - x1, y2 - y1, linewidth=2,
@@ -570,6 +591,15 @@ def draw_boxes(image, boxes=None, refined_boxes=None,
 
     # Generate random colors
     colors = random_colors(N)
+    colors = [(255,0,0),(0,255,0),(0,0,255)]
+    normalizedColors = []
+    for color in colors:
+        newColor = []
+        for v in color:
+            tmp = v/255
+            newColor.append(tmp)
+        normalizedColors.append(newColor)
+    colors = normalizedColors
 
     # Show area outside image boundaries.
     margin = image.shape[0] // 10

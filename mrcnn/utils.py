@@ -650,9 +650,14 @@ def resize_keypoints(keypoint, new_size, scale, padding):
                 x = new_size[1] -1
             if(y>= new_size[0]):
                 y = new_size[0] -1
+
             #padding
-            x = x + padding[1][0]
-            y = y + padding[0][0]
+            if vis == 0:
+                x = 0
+                y = 0
+            else:
+                x = x + padding[1][0]
+                y = y + padding[0][0]
             keypoint[i,j,:2] = [x,y]
 
     # keypoint[:,:,0] = np.array(keypoint[:,:,0]*scale + 0.5).astype(int)
