@@ -1756,39 +1756,38 @@ def load_image_gt_keypoints(dataset, config, image_id, augment=True,
     masks = utils.resize_mask(masks, scale, padding)
     keypoints = utils.resize_keypoints(keypoints, image.shape[:2], scale, padding)
 
-    # Bounding boxes. Note that some boxes might be all zeros if the corresponding mask got cropped out.
+    # Random horizontal flips.
+
+#     if augment:
+#         if random.randint(0, 1):
+
+#             # Equalize histogram
+#             #img = cv2.imread(image)
+#             img_yuv = cv2.cvtColor(image, cv2.COLOR_BGR2YUV)
+
+#             # equalize the histogram of the Y channel
+#             img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])
+
+#             # convert the YUV image back to RGB format
+#             image = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
+
+#             # cv2.imshow('Color input image', image)
+#             # cv2.imshow('Histogram equalized', img_output)
+#             # cv2.waitKey(0)
+
+#         if random.randint(0, 1):
+#             # Flip horizontal
+#             image = np.fliplr(image)
+#             masks = np.fliplr(masks)
+#             keypoint_names,keypoint_flip_map = utils.get_keypoints()
+#             keypoints = utils.flip_keypoints(keypoint_names,keypoint_flip_map,keypoints, image.shape[1])
+
+    # Bounding boxes. Note that some boxes might be all zeros
+    # if the corresponding mask got cropped out.
     # bbox: [num_instances, (y1, x1, y2, x2)]
     # print("mask shape:",np.shape(mask))
     # print("keypoint mask shape:",np.shape(keypoint_mask))
     bbox = utils.extract_bboxes(masks)
-
-    # Random horizontal flips.
-
-    # if augment:
-    #     if random.randint(0, 1):
-
-            # Equalize histogram
-            # img = cv2.imread(image)
-            # img_yuv = cv2.cvtColor(image, cv2.COLOR_BGR2YUV)
-
-            # # equalize the histogram of the Y channel
-            # img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])
-
-            # # convert the YUV image back to RGB format
-            # image = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
-
-            # cv2.imshow('Color input image', image)
-            # cv2.imshow('Histogram equalized', img_output)
-            # cv2.waitKey(0)
-
-
-            # Flip horizontal
-            # image = np.fliplr(image)
-            # mask = np.fliplr(mask)
-            # keypoint_names,keypoint_flip_map = utils.get_keypoints()
-            # keypoints = utils.flip_keypoints(keypoint_names,keypoint_flip_map,keypoints, image.shape[1])
-
-    
 
 
     # Active classes
@@ -3044,7 +3043,7 @@ class MaskRCNN():
         # Data keypoint generators
 
         train_generator = data_generator_keypoint(train_dataset, self.config, shuffle=True,
-                                        batch_size=self.config.BATCH_SIZE,augment =False)
+                                        batch_size=self.config.BATCH_SIZE,augment =True)
         val_generator = data_generator_keypoint(val_dataset, self.config, shuffle=True,
                                        batch_size=self.config.BATCH_SIZE,
                                        augment=False)
@@ -3054,7 +3053,7 @@ class MaskRCNN():
             keras.callbacks.TensorBoard(log_dir=self.log_dir,
                                         histogram_freq=0, write_graph=True, write_images=False),
             keras.callbacks.ModelCheckpoint(self.checkpoint_path,
-                                            verbose=0, save_weights_only=True),
+                                            verbose=1, save_weights_only=True),
         ]
 
         # Train
@@ -3301,7 +3300,7 @@ class MaskRCNN():
             })
         return results
 
-    def detect_keypoint(self, images, verbose=0):
+    def detect_keypoint(self, images, verbose=1):
         """Runs the detection pipeline.
 
         images: List of images, potentially of different sizes.

@@ -113,7 +113,8 @@ def display_instances(image, boxes, masks, class_ids, class_names,
         _, ax = plt.subplots(1, figsize=figsize)
 
     # Generate random colors
-    # colors = random_colors(N)
+#     colors = random_colors(N)
+    
     colors = [(255,0,0),(0,255,0),(0,0,255)]
     normalizedColors = []
     for color in colors:
@@ -445,7 +446,7 @@ def draw_rois(image, rois, refined_rois, mask, class_ids, class_names, limit=10)
         p = patches.Rectangle((x1, y1), x2 - x1, y2 - y1, linewidth=2,
                               edgecolor=color if class_id else "gray",
                               facecolor='none', linestyle="dashed")
-        ax.add_patch(p)
+#         ax.add_patch(p)
         # Refined ROI
         if class_id:
             ry1, rx1, ry2, rx2 = refined_rois[id]
@@ -590,7 +591,7 @@ def draw_boxes(image, boxes=None, refined_boxes=None,
         _, ax = plt.subplots(1, figsize=(12, 12))
 
     # Generate random colors
-    colors = random_colors(N)
+#     colors = random_colors(N)
     colors = [(255,0,0),(0,255,0),(0,0,255)]
     normalizedColors = []
     for color in colors:

@@ -89,15 +89,15 @@ class PantographConfig(Config):
     NUM_CLASSES = 1 + 3  # Background + pantograph
 
     # Number of training steps per epoch
-    STEPS_PER_EPOCH = 100
-    VALIDATION_STEPS = 50
+    STEPS_PER_EPOCH = 1000
+    VALIDATION_STEPS = 100
     BACKBONE = "resnet101"
 
     # Skip detections with < 90% confidence
     DETECTION_MIN_CONFIDENCE = 0.9
 
     USE_MINI_MASK = True
-    MINI_MASK_SHAPE = (224, 224)
+    MINI_MASK_SHAPE = (56, 56)
 
     NUM_KEYPOINTS = 6
     MASK_SHAPE = [28, 28]
@@ -145,7 +145,7 @@ class PantographDataset(utils.Dataset):
         dataset_dir = os.path.join(dataset_dir, subset)
         
         # Set path to annotations and open
-        ANNO_FILE = os.path.join(dataset_dir, "region_data.json")
+        ANNO_FILE = os.path.join(dataset_dir, "region_data_2.json")
         pantograph = COCO(ANNO_FILE)
 
         # Set path to images
@@ -359,7 +359,6 @@ class PantographDataset(utils.Dataset):
         m = maskUtils.decode(rle)
         return m
 
-
     def loadRes(self, resFile):
         """
         Load result file and return a result api object.
@@ -428,7 +427,6 @@ class PantographDataset(utils.Dataset):
 
 
 
-
 ############################################################
 #  COCO Evaluation
 ############################################################
@@ -451,7 +449,7 @@ def build_coco_results(dataset, image_ids, rois, class_ids, scores, masks):
 
             result = {
                 "image_id": image_id,
-                "category_id": utils.get_source_class_id(class_id, "pantograph"),
+                "category_id": dataset.get_source_class_id(class_id, "pantograph"),
                 "bbox": [bbox[1], bbox[0], bbox[3] - bbox[1], bbox[2] - bbox[0]],
                 "score": score,
                 "segmentation": maskUtils.encode(np.asfortranarray(mask))
@@ -497,7 +495,7 @@ def evaluate_coco(model, dataset, coco, eval_type="bbox", limit=0, image_ids=Non
         results.extend(image_results)
 
     # Load results. This modifies results with additional attributes.
-    coco_results = coco.loadRes(results)
+    coco_results = pantograph.loadRes(results)
 
     # Evaluate
     cocoEval = COCOeval(coco, coco_results, eval_type)
