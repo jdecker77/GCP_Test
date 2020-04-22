@@ -145,7 +145,7 @@ class PantographDataset(utils.Dataset):
         dataset_dir = os.path.join(dataset_dir, subset)
         
         # Set path to annotations and open
-        ANNO_FILE = os.path.join(dataset_dir, "region_data_2.json")
+        ANNO_FILE = os.path.join(dataset_dir, "region_data.json")
         pantograph = COCO(ANNO_FILE)
 
         # Set path to images
