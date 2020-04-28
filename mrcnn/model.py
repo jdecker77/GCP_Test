@@ -1687,8 +1687,9 @@ def load_image_gt(dataset, config, image_id, augment=False,
     # Random horizontal flips.
     if augment:
         if random.randint(0, 1):
-            image = np.fliplr(image)
-            mask = np.fliplr(mask)
+            pass
+            # image = np.fliplr(image)
+            # mask = np.fliplr(mask)
 
     # Bounding boxes. Note that some boxes might be all zeros
     # if the corresponding mask got cropped out.
@@ -3043,7 +3044,7 @@ class MaskRCNN():
         # Data keypoint generators
 
         train_generator = data_generator_keypoint(train_dataset, self.config, shuffle=True,
-                                        batch_size=self.config.BATCH_SIZE,augment =True)
+                                        batch_size=self.config.BATCH_SIZE,augment=False)
         val_generator = data_generator_keypoint(val_dataset, self.config, shuffle=True,
                                        batch_size=self.config.BATCH_SIZE,
                                        augment=False)
